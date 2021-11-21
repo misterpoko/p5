@@ -1,13 +1,23 @@
 #ifndef SORTING_H
 #define SORTING_H
-
 using namespace std;
-void SS(int * array, int size);
-void MS();
-void MSPT2();
-void HS();
-void QS1();
-void QS2();
+
+class Sorting 
+{
+  public:
+    Sorting();
+    ~Sorting();
+    void SS(int * array);
+    void MS(int* array);
+    void MSPT2(int* array);
+    void HS(int* array);
+    void QS1(int* array);
+    void QS2(int* array);
+    
+    long comparisons;
+    
+};
+
 
 #endif
 

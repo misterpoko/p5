@@ -1,17 +1,23 @@
 #include <iostream>
 #include "Sorting.h"
 
+Sorting::Sorting()
+{
+  comparisons=0;
+} 
+Sorting::~Sorting()
+{
+  
+}
 
-long comparisons = 0;
-
-void SS(int* array, int size)
+void Sorting::SS(int* array)
 {
 	int low;
 	int tracker;
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < 10000; i++)
 	{
 		tracker = i;
-		for (int j = size-1; j > i; j--)
+		for (int j = 10000-1; j > i; j--)
 		{
 			if (array[j] < array[tracker])
 			{
@@ -23,28 +29,49 @@ void SS(int* array, int size)
 		array[i] = array[tracker];
 		array[tracker] = low;
 	} // for
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < 10000; i++)
 		cout << array[i] << " ";
 	cout << endl;
 	cout << "Number of comparisons: " << comparisons << endl;
 } // ss
 
-void MS()
+void Sorting::MS(int* array)
 {
+  for(int i =0; i<10000; i++)
+		cout << array[i] << " ";
+	cout << endl;
+	cout << "Number of comparisons: " << comparisons << endl;
 } // MS
 
-void MSPT2()
+void Sorting::MSPT2(int* array)
 {
+  for(int i =0; i<10000; i++)
+		cout << array[i] << " ";
+	cout << endl;
+	cout << "Number of comparisons: " << comparisons << endl;
 } // MSPT2
 
-void HS()
+void Sorting::HS(int* array)
 {
+  for(int i =0; i<10000; i++)
+		cout << array[i] << " ";
+	cout << endl;
+	cout << "Number of comparisons: " << comparisons << endl;
 } // HS
 
-void QS1()
+
+void Sorting::QS1(int* array)
 {
+  for(int i =0; i<10000; i++)
+		cout << array[i] << " ";
+	cout << endl;
+	cout << "Number of comparisons: " << comparisons << endl;
 } // QS1
 
-void QS2()
+void Sorting::QS2(int* array)
 {
+  for(int i =0; i<10000; i++)
+		cout << array[i] << " ";
+	cout << endl;
+	cout << "Number of comparisons: " << comparisons << endl;
 } // QS2
