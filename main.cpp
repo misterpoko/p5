@@ -1,16 +1,23 @@
 #include <iostream>
 #include <stdio.h>      /* printf, scanf, puts, NULL */
-#include <fstream> 
+#include <fstream>
 #include <string.h>
 #include <sstream>
 #include <string>
 #include "Sorting.h"
+#define null NULL
 
+struct Node {
+    int data;
+    Node * next;
+};
+
+void printArray(int * array,int size);
 using namespace std;
 int main (int argc, char **argv)
 {
   string userSelect;
-  string subLine; 
+  string subLine;
   int valueOfInt;
   char userSelectChar, listType;
   bool check = true;
@@ -19,9 +26,11 @@ int main (int argc, char **argv)
   char caseH = 'h';
   char caseQ = 'q';
   char caseR = 'r';
-  int values [10000];
+  int valuesSize = 0;
+  Node * head = new Node;
+  Node * curr = head;
   int index =0;
-  Sorting listy; 
+  Sorting listy;
 	ifstream inFile;
 	inFile.open(argv[1]);
 	if (!inFile.is_open()) //Error checking for if the file can be opened
@@ -30,18 +39,46 @@ int main (int argc, char **argv)
   }//if
 	while (getline(inFile, subLine,' ')) //Gets each variable until it hits a space or EOF
 	{
-     valueOfInt = stoi(subLine);
-     values[index] = valueOfInt;
-     index++;
+        valueOfInt = stoi(subLine);
+        if(valuesSize == 0) {
+            head->data = valueOfInt;
+        }
+        else {
+            Node * n = new Node;
+            n->data = valueOfInt;
+            n->next = head;
+		head = n;
+        }
+        valuesSize++;
+        //valueOfInt = stoi(subLine);
+        //values[index] = valueOfInt;
+        //index++;
      //cout << subLine << " ";
   }//while
+    int values[valuesSize];
+    curr = head;
+    int i = 0;
+    while(curr != null) {
+        values[i] = curr->data;
+        curr = curr->next;
+        delete head;
+        head = curr;
+        i++;
+    }//while
+	for (int i = 0; i < valuesSize; i++)
+	{
+		cout << values[i] << " ";
+	} // for
+	cout << endl;
+    head = null;
+    curr = null;
   cout << endl;
   inFile.close();
   cout << "selection-sort (s) merge-sort (m) heap-sort (h) quick-sort-fp(q) quick-sort-rp (r) " << endl;
   cout << "Enter the algorithm: ";
-	cin >> userSelect; 
+	cin >> userSelect;
 	//Lines 114 - 120 make sure input us a 1 char string
-	while(userSelect.size()!=1) 
+	while(userSelect.size()!=1)
 	{
 	  cout << "Invalid command, try again!" <<endl;
 	  cout << "Enter a command: ";
@@ -51,21 +88,23 @@ int main (int argc, char **argv)
 	switch (userSelectChar)
 			{
 			case 's': //Selestion Sort
-				cout << "selection-sort" << endl; 
+				cout << "selection-sort" << endl;
         listy.SS(values);
+				printArray(values, (sizeof(values)/sizeof(values[0])));
 				break;
 			case 'm': // Merge Sort
-				cout << "merge-sort" << endl; 
-        listy.MS(values,0 , 10000);
+				cout << "merge-sort" << endl;
+                listy.MS(values,0 , (sizeof(values)/sizeof(values[0]))- 1);
+				printArray(values, (sizeof(values)/sizeof(values[0])));
 				break;
 			case 'h': // Heap Sort
-        cout << "heap-sort" << endl; 
+        cout << "heap-sort" << endl;
 				break;
 			case 'q': // Quick Sort FP
-				cout << "quick-sort-fp(q)" << endl; 
+				cout << "quick-sort-fp(q)" << endl;
 				break;
 			case 'r': //Quick Sort RP
-			  cout << "quick-sort-rp (r)" << endl; 
+			  cout << "quick-sort-rp (r)" << endl;
 				break;
 			default:
 				cout << "Command not recognized. Try again" << endl;
@@ -74,3 +113,10 @@ int main (int argc, char **argv)
 
 	return 0;
 } // main
+
+void printArray(int * array, int size)
+{
+	for (int i = 0; i < size; i++)
+		cout << array[i] << " ";
+	cout << endl;
+} // printArray
