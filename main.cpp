@@ -56,7 +56,7 @@ int main (int argc, char **argv)
 				break;
 			case 'm': // Merge Sort
 				cout << "merge-sort" << endl; 
-        listy.MS(values);
+        listy.MS(values,0 , 10000);
 				break;
 			case 'h': // Heap Sort
         cout << "heap-sort" << endl; 

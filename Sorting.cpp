@@ -3,7 +3,8 @@
 
 Sorting::Sorting()
 {
-  comparisons=0;
+  comparisons = 0;
+
 } 
 Sorting::~Sorting()
 {
@@ -35,20 +36,50 @@ void Sorting::SS(int* array)
 	cout << "Number of comparisons: " << comparisons << endl;
 } // ss
 
-void Sorting::MS(int* array)
+void Sorting::MS(int* array, int beg, int end)
 {
-  for(int i =0; i<10000; i++)
+	if (beg >= end)
+		return;
+	int mid = beg + (end - beg)/2;
+	MS(array, beg, mid);
+	MS(array, mid + 1, end);
+	MSPT2(array, beg, mid, end);	
+	
+/*  for(int i =0; i<10000; i++)
 		cout << array[i] << " ";
 	cout << endl;
-	cout << "Number of comparisons: " << comparisons << endl;
+	cout << "Number of comparisons: " << comparisons << endl;*/
 } // MS
 
-void Sorting::MSPT2(int* array)
+void Sorting::MSPT2(int* array, int left, int mid, int right)
 {
-  for(int i =0; i<10000; i++)
-		cout << array[i] << " ";
-	cout << endl;
-	cout << "Number of comparisons: " << comparisons << endl;
+	int length1 = mid - left + 1;
+	int length2 = right - mid;
+
+	int * leftArray = new int[length1];
+	int * rightArray = new int[length2];
+
+	for (int i = 0; i < length1; i++)
+		leftArray[i] = array[left + i];
+	for (int i = 0; i < length2; i++)
+		rightArray[i] = array[mid + i + 1];
+
+	int i = 0;
+	int j = 0;
+	int k = 0;
+	while (i < length1 && j < length2)
+	{
+		comparisons++;
+		if (leftArray[i] >= rightArray[j])
+			array[k++] = rightArray[j++];
+		else
+			array[k++] = leftArray[i++];
+	} // while
+	while (i < length1)
+		array[k++] = leftArray[i++];
+	while (j < length1)
+		array[k++] = rightArray[j++];
+
 } // MSPT2
 
 void Sorting::HS(int* array)
