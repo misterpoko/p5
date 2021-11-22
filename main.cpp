@@ -19,7 +19,7 @@ int main (int argc, char **argv)
   string userSelect;
   string subLine;
   int valueOfInt;
-  int comparisons;
+  int n;
   char userSelectChar, listType;
   bool check = true;
 	char caseS = 's';
@@ -93,23 +93,28 @@ int main (int argc, char **argv)
 			case 's': //Selestion Sort
         listy.SS(values);
 				printArray(values, (sizeof(values)/sizeof(values[0])));
+        cout << "Number of comparisons: " << listy.comparisons << endl;
 				break;
 			case 'm': // Merge Sort
         listy.MS(values,0 , (sizeof(values)/sizeof(values[0]))- 1);
 				printArray(values, (sizeof(values)/sizeof(values[0])));
+        cout << "Number of comparisons: " << listy.comparisons << endl;
 				break;
 			case 'h': // Heap Sort
+        n = sizeof(values) / sizeof(values[0]);
+        listy.HS(values,n);
         printArray(values, (sizeof(values)/sizeof(values[0])));
+        cout << "Number of comparisons: " << listy.comparisons << endl;
 				break;
 			case 'q': // Quick Sort FP
-        comparisons = listy.QS1(values,0,valuesSize-1); 
+        listy.QS1(values,0,valuesSize-1); 
         printArray(values, (sizeof(values)/sizeof(values[0])));
 	      cout << "Number of comparisons: " << listy.comparisons << endl;
 				break;
 			case 'r': //Quick Sort RP
-        comparisons = listy.QS2(values,0,valuesSize-1);
+        listy.QS2(values,0,valuesSize-1);
        	printArray(values, (sizeof(values)/sizeof(values[0])));
-        cout << "Number of comparisons: " << comparisons << endl;
+        cout << "Number of comparisons: " << listy.comparisons << endl;
 				break;
 			default:
 				cout << "Command not recognized. Try again" << endl;

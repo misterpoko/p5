@@ -29,13 +29,77 @@ void Sorting::SS(int* array)
 		array[i] = array[tracker];
 		array[tracker] = low;
 	} // for
-	/*for (int i = 0; i < 10000; i++)
-		cout << array[i] << " ";
-	cout << endl;
-	cout << "Number of comparisons: " << comparisons << endl; */
 } // ss
 
-void Sorting::MS(int* array, int beg, int end)
+void Sorting::merge(int array[], int const left, int const mid, int const right)
+{
+    auto const subArrayOne = mid - left + 1;
+    auto const subArrayTwo = right - mid;
+  
+    // Create temp arrays
+    auto *leftArray = new int[subArrayOne], *rightArray = new int[subArrayTwo];
+  
+    // Copy data to temp arrays leftArray[] and rightArray[]
+    for (auto i = 0; i < subArrayOne; i++)
+        leftArray[i] = array[left + i];
+    for (auto j = 0; j < subArrayTwo; j++)
+        rightArray[j] = array[mid + 1 + j];
+  
+    auto indexOfSubArrayOne = 0, // Initial index of first sub-array
+        indexOfSubArrayTwo = 0; // Initial index of second sub-array
+    int indexOfMergedArray = left; // Initial index of merged array
+  
+    // Merge the temp arrays back into array[left..right]
+    while (indexOfSubArrayOne < subArrayOne && indexOfSubArrayTwo < subArrayTwo) 
+    {
+      if (leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo]) 
+      {
+        comparisons++;
+        array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+        indexOfSubArrayOne++;
+      }
+      else 
+      {
+        comparisons++;
+        array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+        indexOfSubArrayTwo++;
+      }
+      indexOfMergedArray++;
+    }
+    // Copy the remaining elements of
+    // left[], if there are any
+    while (indexOfSubArrayOne < subArrayOne) 
+    {
+      array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+      indexOfSubArrayOne++;
+      indexOfMergedArray++;
+      comparisons++;
+    }
+    // Copy the remaining elements of
+    // right[], if there are any
+    while (indexOfSubArrayTwo < subArrayTwo) 
+    {
+      array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+      indexOfSubArrayTwo++;
+      indexOfMergedArray++;
+      comparisons++;
+    }
+}
+
+
+void Sorting::MS(int array[], int const begin, int const end)
+{
+  if (begin >= end)
+    return; // Returns recursively
+  
+  auto mid = begin + (end - begin) / 2;
+  MS(array, begin, mid);
+  MS(array, mid + 1, end);
+  merge(array, begin, mid, end);
+}
+
+
+/*void Sorting::MS(int* array, int beg, int end)
 {
 	if (beg >= end)
 		return;
@@ -44,10 +108,6 @@ void Sorting::MS(int* array, int beg, int end)
 	MS(array, mid + 1, end);
 	MSPT2(array, beg, mid, end);	
 	
-/*  for(int i =0; i<10000; i++)
-		cout << array[i] << " ";
-	cout << endl;
-	cout << "Number of comparisons: " << comparisons << endl;*/
 } // MS
 
 void Sorting::MSPT2(int* array, int left, int mid, int right)
@@ -78,11 +138,52 @@ void Sorting::MSPT2(int* array, int left, int mid, int right)
 	while (j < length2)
 		array[k++] = rightArray[j++];
 
-} // MSPT2
+} // MSPT2*/
 
-void Sorting::HS(int* array) //Heap
+
+void Sorting::heapify(int arr[], int n, int i)
 {
+    int largest = i; // Initialize largest as root
+    int l = 2 * i + 1; // left = 2*i + 1
+    int r = 2 * i + 2; // right = 2*i + 2
  
+    // If left child is larger than root
+    if (l < n && arr[l] > arr[largest])
+    {
+      comparisons++;
+      largest = l;
+    }
+    // If right child is larger than largest so far
+    if (r < n && arr[r] > arr[largest])
+    {
+      comparisons++;
+      largest = r;
+    }
+    // If largest is not root
+    if (largest != i) {
+    {
+       comparisons++;
+       swap(arr[i], arr[largest]);
+    }
+    // Recursively heapify the affected sub-tree
+    heapify(arr, n, largest);
+    }
+} 
+
+void Sorting::HS(int* arr, int n) //Heap
+{
+   // Build heap (rearrange array)
+    for (int i = n / 2 - 1; i >= 0; i--)
+        heapify(arr, n, i);
+ 
+    // One by one extract an element from heap
+    for (int i = n - 1; i > 0; i--) {
+        // Move current root to end
+        swap(arr[0], arr[i]);
+ 
+    // call max heapify on the reduced heap
+    heapify(arr, i, 0);
+    }
 } // HS
 
 
@@ -90,7 +191,7 @@ int Sorting::QS1(int* arr, int start,int last) //QuickSort at first
 {
   int i=start+1,j=last,temp;
   if(i>j)
-  return comparisons;
+    return 0;
   while(i<=j)
   {
     if(arr[i]<arr[start])
@@ -128,7 +229,7 @@ void swap(int* a, int* b)
     *b = t; 
 } 
 
-int partition(int arr[], int low, int high)
+int Sorting::partition(int arr[], int low, int high)
 {
     // pivot
     int pivot = arr[high];
@@ -152,7 +253,7 @@ int partition(int arr[], int low, int high)
 }
  
 // Generates Random Pivot, swaps pivot with end element and calls the partition function
-int partition_r(int arr[], int low, int high)
+int Sorting::partition_r(int arr[], int low, int high)
 {
     // Generate a random number in between low .. high
     srand(time(NULL));
@@ -168,6 +269,13 @@ int Sorting::QS2(int* arr, int low,int high) //QuickSort at random
 {
     if (low < high) 
     { 
+    
+    
+        comparisons++; // I dont know if this is a comparison that needs to be counted.
+        
+        
+        
+        
         // pi is partitioning index, arr[p] is now at right place 
         int pi = partition_r(arr, low, high); 
   
