@@ -19,6 +19,7 @@ int main (int argc, char **argv)
   string userSelect;
   string subLine;
   int valueOfInt;
+  int comparisons;
   char userSelectChar, listType;
   bool check = true;
 	char caseS = 's';
@@ -40,15 +41,17 @@ int main (int argc, char **argv)
 	while (getline(inFile, subLine,' ')) //Gets each variable until it hits a space or EOF
 	{
         valueOfInt = stoi(subLine);
-        if(valuesSize == 0) {
-            head->data = valueOfInt;
-        }
-        else {
-            Node * n = new Node;
-            n->data = valueOfInt;
-            n->next = head;
-		head = n;
-        }
+        if(valuesSize == 0) 
+        {
+          head->data = valueOfInt;
+        }//if
+        else 
+        {
+          Node * n = new Node;
+          n->data = valueOfInt;
+          n->next = head;
+          head = n;
+        }//else
         valuesSize++;
         //valueOfInt = stoi(subLine);
         //values[index] = valueOfInt;
@@ -88,23 +91,25 @@ int main (int argc, char **argv)
 	switch (userSelectChar)
 			{
 			case 's': //Selestion Sort
-				cout << "selection-sort" << endl;
         listy.SS(values);
 				printArray(values, (sizeof(values)/sizeof(values[0])));
 				break;
 			case 'm': // Merge Sort
-				cout << "merge-sort" << endl;
-                listy.MS(values,0 , (sizeof(values)/sizeof(values[0]))- 1);
+        listy.MS(values,0 , (sizeof(values)/sizeof(values[0]))- 1);
 				printArray(values, (sizeof(values)/sizeof(values[0])));
 				break;
 			case 'h': // Heap Sort
-        cout << "heap-sort" << endl;
+        printArray(values, (sizeof(values)/sizeof(values[0])));
 				break;
 			case 'q': // Quick Sort FP
-				cout << "quick-sort-fp(q)" << endl;
+        comparisons = listy.QS1(values,0,valuesSize-1); 
+        printArray(values, (sizeof(values)/sizeof(values[0])));
+	      cout << "Number of comparisons: " << listy.comparisons << endl;
 				break;
 			case 'r': //Quick Sort RP
-			  cout << "quick-sort-rp (r)" << endl;
+        comparisons = listy.QS2(values,0,valuesSize-1);
+       	printArray(values, (sizeof(values)/sizeof(values[0])));
+        cout << "Number of comparisons: " << comparisons << endl;
 				break;
 			default:
 				cout << "Command not recognized. Try again" << endl;

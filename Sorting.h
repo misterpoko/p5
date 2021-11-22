@@ -11,8 +11,8 @@ class Sorting
     void MS(int* array, int beg, int end);
     void MSPT2(int* array, int left, int mid, int right);
     void HS(int* array);
-    void QS1(int* array);
-    void QS2(int* array);
+    int QS1(int* arr, int start,int last);
+    int QS2(int* arr, int start,int last);
     
     long comparisons;
     
