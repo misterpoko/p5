@@ -29,7 +29,7 @@ int main (int argc, char **argv)
   Sorting listy;
 	ifstream inFile;
  
-  cout << "Random vales (1) File Input (2). \nEnter a command: ";
+  cout << "Random values (1) File Input (2). \nEnter a command: ";
   cin >> userSelect;
   arrayTypeSelect = stoi(userSelect);
   while(arrayTypeSelect != 1 && arrayTypeSelect!= 2)
