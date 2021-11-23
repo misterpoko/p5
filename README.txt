@@ -60,3 +60,6 @@ heap sort
 
 https://www.geeksforgeeks.org/merge-sort/
 merge sort
+
+https://stackoverflow.com/questions/6740183/quicksort-with-first-element-as-pivot-example
+quick sort first pivot

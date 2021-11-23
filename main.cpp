@@ -42,7 +42,20 @@ int main (int argc, char **argv)
   {
     cout << "Enter a number of elements wanted: ";
     cin >> userSelect;
-    valuesSize = stoi(userSelect);
+    bool inputCheck = true;
+    while(inputCheck == true)
+    {
+      try 
+		  {
+		    valuesSize = stof(userSelect);
+        inputCheck = false;
+		  }//try
+		  catch(std::invalid_argument) //Catches error if user tries to store strings into a float
+		  {
+		    cout << "Invalid input. Try again : ";
+        cin >> userSelect;
+		  }//catch
+   }
     int valuesRandom[valuesSize];
 	  for (int i = 0; i < valuesSize; i++)
 	  {
