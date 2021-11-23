@@ -274,10 +274,10 @@ int Sorting::partition(int arr[], int low, int high)
         if (arr[j] <= pivot) {
  
             // increment index of smaller element
-            comparisons++;
             i++;
             swap(arr[i], arr[j]);
         }
+            comparisons++;
     }
     swap(arr[i + 1], arr[high]);
     return (i + 1);
