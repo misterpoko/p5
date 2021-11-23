@@ -15,7 +15,9 @@ make
 How to run:
 ./main input.txt 
 
-
+How to run alternate implementation:
+./main
+  then follow text prompts using the integers to input your own array size that will be full of random elements
 
 How to clean:
 make clean
