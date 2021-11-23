@@ -151,8 +151,9 @@ void Sorting::heapify(int arr[], int n, int i)
       largest = l;
     }
       if (l < n) 
-	{comparisons++;
-      if (arr[l] > arr[largest]) comparisons++;
+	{
+	comparisons++;
+  //    if (arr[l] > arr[largest]) comparisons++;
 	} 
     // If right child is larger than largest so far
     if (r < n && arr[r] > arr[largest])
@@ -160,15 +161,15 @@ void Sorting::heapify(int arr[], int n, int i)
       largest = r;
     }
       if (r < n) 
-	{comparisons++;
-      if (arr[r] > arr[largest]) comparisons++;
+	{
+	comparisons++;
+//      if (arr[r] > arr[largest]) comparisons++;
 	}
     // If largest is not root
     if (largest != i) {
     {
        swap(arr[i], arr[largest]);
     }
-//	comparisons++;
     // Recursively heapify the affected sub-tree
     heapify(arr, n, largest);
     }
@@ -200,14 +201,14 @@ int Sorting::QS1(int* arr, int start,int last) //QuickSort at first
   {
     if(arr[i]<arr[start])
     {
-      comparisons++;
       i++;
     }//if
+      comparisons++;
     if(arr[j]>arr[start])
     {
-      comparisons++;
       j--;                
     }//if
+      comparisons++;
     if(i<=j)
     {
       temp=arr[i];
