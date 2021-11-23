@@ -148,21 +148,27 @@ void Sorting::heapify(int arr[], int n, int i)
     // If left child is larger than root
     if (l < n && arr[l] > arr[largest])
     {
-      comparisons++;
       largest = l;
     }
+      if (l < n) 
+	{comparisons++;
+      if (arr[l] > arr[largest]) comparisons++;
+	} 
     // If right child is larger than largest so far
     if (r < n && arr[r] > arr[largest])
     {
-      comparisons++;
       largest = r;
     }
+      if (r < n) 
+	{comparisons++;
+      if (arr[r] > arr[largest]) comparisons++;
+	}
     // If largest is not root
     if (largest != i) {
     {
-       comparisons++;
        swap(arr[i], arr[largest]);
     }
+//	comparisons++;
     // Recursively heapify the affected sub-tree
     heapify(arr, n, largest);
     }
