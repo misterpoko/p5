@@ -179,91 +179,91 @@ void Sorting::HS(int* arr, int n) //Heap
 
 int Sorting::partition1(int *arr,int start,int last)
 {
-  int pivot=arr[start],p1=start+1,i,temp;
-  for(i=start+1;i<=last;i++)
-  {
-    comparisons++;
-    if(arr[i]<pivot)
-    {
-      if(i!=p1)
-      {  
-        temp=arr[p1];
-        arr[p1]=arr[i];
-        arr[i]=temp;
-      }   
-      p1++;
-    }
-  }
-  arr[start]=arr[p1-1];
-  arr[p1-1]=pivot;
-  return p1-1;
+int pivot=arr[start],p1=start+1,i,temp;
+for(i=start+1;i<=last;i++)
+{
+comparisons++;
+if(arr[i]<pivot)
+{
+if(i!=p1)
+{  
+temp=arr[p1];
+arr[p1]=arr[i];
+arr[i]=temp;
+}   
+p1++;
+}
+}
+arr[start]=arr[p1-1];
+arr[p1-1]=pivot;
+return p1-1;
 }
 
 
 void Sorting::QS1(int* arr, int start,int last) //QuickSort at first
 {
-  int p1;
-  if(start<last)
-  {
-    p1=partition1(arr,start,last);
-    QS1(arr,start,p1-1);
-    QS1(arr,p1+1,last);
-  }
+int p1;
+if(start<last)
+{
+p1=partition1(arr,start,last);
+QS1(arr,start,p1-1);
+QS1(arr,p1+1,last);
+}
 } // QS1
 
 void swap(int* a, int* b) 
 { 
-    int t = *a; 
-    *a = *b; 
-    *b = t; 
+int t = *a; 
+*a = *b; 
+*b = t; 
 } 
 
 int Sorting::partition(int arr[], int low, int high)
 {
-    // pivot
-    int pivot = arr[high];
-   
-    // Index of smaller element
-    int i = (low - 1);
- 
-    for (int j = low; j <= high - 1; j++)
-    {
-        // If current element is smaller than or equal to pivot
-        if (arr[j] <= pivot) {
- 
-            // increment index of smaller element
-            i++;
-            swap(arr[i], arr[j]);
-        }
-            comparisons++;
-    }
-    swap(arr[i + 1], arr[high]);
-    return (i + 1);
+// pivot
+int pivot = arr[high];
+
+// Index of smaller element
+int i = (low - 1);
+
+for (int j = low; j <= high - 1; j++)
+{
+// If current element is smaller than or equal to pivot
+if (arr[j] <= pivot) {
+
+// increment index of smaller element
+i++;
+swap(arr[i], arr[j]);
 }
- 
+comparisons++;
+}
+swap(arr[i + 1], arr[high]);
+return (i + 1);
+}
+
 // Generates Random Pivot, swaps pivot with end element and calls the partition function
 int Sorting::partition_r(int arr[], int low, int high)
 {
-    // Generate a random number in between low .. high
-    srand(time(NULL));
-    int random = low + rand() % (high - low);
- 
-    // Swap A[random] with A[high]
-    swap(arr[random], arr[high]);
- 
-    return partition(arr, low, high);
+// Generate a random number in between low .. high
+srand(time(NULL));
+int random = low + rand() % (high - low);
+
+// Swap A[random] with A[high]
+swap(arr[random], arr[high]);
+
+return partition(arr, low, high);
 }
 
 int Sorting::QS2(int* arr, int low,int high) //QuickSort at random
 {
-    if (low < high) 
-    { 
-        // pi is partitioning index, arr[p] is now at right place 
-        int pi = partition_r(arr, low, high); 
-  
-        // Separately sort elements before partition and after partition 
-        QS2(arr, low, pi - 1); 
-        QS2(arr, pi + 1, high); 
-    } 
-    return comparisons;
+if (low < high) 
+{ 
+// pi is partitioning index, arr[p] is now at right place 
+int pi = partition_r(arr, low, high); 
+
+// Separately sort elements before partition and after partition 
+QS2(arr, low, pi - 1); 
+QS2(arr, pi + 1, high); 
+} 
+return comparisons;
 } // QS2
