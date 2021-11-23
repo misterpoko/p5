@@ -97,48 +97,6 @@ void Sorting::MS(int array[], int const begin, int const end)
 }
 
 
-/*void Sorting::MS(int* array, int beg, int end)
-{
-	if (beg >= end)
-		return;
-	int mid = beg + (end - beg)/2;
-	MS(array, beg, mid);
-	MS(array, mid + 1, end);
-	MSPT2(array, beg, mid, end);	
-	
-} // MS
-
-void Sorting::MSPT2(int* array, int left, int mid, int right)
-{
-	int length1 = mid - left + 1;
-	int length2 = right - mid;
-
-	int * leftArray = new int[length1];
-	int * rightArray = new int[length2];
-
-	for (int n = 0; n < length1; n++)
-		leftArray[n] = array[left + n];
-	for (int n = 0; n < length2; n++)
-		rightArray[n] = array[mid + n + 1];
-	int i = 0;
-	int j = 0;
-	int k = 1;
-	while (i < length1 && j < length2)
-	{
-		comparisons++;
-		if (leftArray[i] >= rightArray[j])
-			array[k++] = rightArray[j++];
-		else
-			array[k++] = leftArray[i++];
-	} // while
-	while (i < length1)
-		array[k++] = leftArray[i++];
-	while (j < length2)
-		array[k++] = rightArray[j++];
-
-} // MSPT2*/
-
-
 void Sorting::heapify(int arr[], int n, int i)
 {
     int largest = i; // Initialize largest as root
@@ -218,40 +176,11 @@ void Sorting::QS1(int* arr, int start,int last) //QuickSort at first
   int p1;
   if(start<last)
   {
-    p1=partition(arr,start,last);
+    p1=partition1(arr,start,last);
     QS1(arr,start,p1-1);
     QS1(arr,p1+1,last);
   }
 } // QS1
-
-/*int i=start+1,j=last,temp;
-  if(i>j)
-    return 0;
-  while(i<=j)
-  {
-    if(arr[i]<arr[start])
-    {
-      i++;
-    }//if
-      comparisons++;
-    if(arr[j]>arr[start])
-    {
-      j--;                
-    }//if
-      comparisons++;
-    if(i<=j)
-    {
-      temp=arr[i];
-      arr[i]=arr[j];
-      arr[j]=temp;
-    }//if
-  }//while
-  temp=arr[start];
-  arr[start]=arr[j];
-  arr[j]=temp;
-  QS1(arr,start,j-1);
-  QS1(arr,j+1,last);     
-  return comparisons;*/
 
 void swap(int* a, int* b) 
 { 
