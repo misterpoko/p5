@@ -1,19 +1,32 @@
 #include <iostream>
 #include "Sorting.h"
 
+
+/**
+ * Constructor that creates a sorting object meant to keep track of comparisons
+ */
 Sorting::Sorting()
 {
-  comparisons = 0;
-} 
-Sorting::~Sorting()
-{
-  
-}
+	comparisons = 0;
+} // Sorting
 
+/**
+ * Default destructor
+ */ 
+Sorting::~Sorting()
+{ 
+} // ~Sorting
+
+/**
+ * This is the selection sort method. It is a simple sorting method.
+ * @param array is the array being sorted
+ * @param size is the size of the array being sorted
+ */
 void Sorting::SS(int* array, int size)
 {
 	int low;
 	int tracker;
+	//traversing array and finding min to swap with current element
 	for (int i = 0; i < size; i++)
 	{
 		tracker = i;
@@ -29,106 +42,122 @@ void Sorting::SS(int* array, int size)
 		array[i] = array[tracker];
 		array[tracker] = low;
 	} // for
-} // ss
+} // SS
 
+/**
+ * This is the merge part of the mergesort method. This is where the actual sorting takes place. It is not a simple sort and uses lots of temporary arrays.
+ * @param array the temp array to be sorted
+ * @param left the leftmost part of the array
+ * @param mid the middle of the array
+ * @param right the rightmost part of the array
+ */
 void Sorting::merge(int array[], int const left, int const mid, int const right)
 {
-    auto const subArrayOne = mid - left + 1;
-    auto const subArrayTwo = right - mid;
+	auto const subArrayOne = mid - left + 1;
+	auto const subArrayTwo = right - mid;
   
-    // Create temp arrays
-    auto *leftArray = new int[subArrayOne], *rightArray = new int[subArrayTwo];
+	// Create temp arrays
+	auto *leftArray = new int[subArrayOne], *rightArray = new int[subArrayTwo];
   
-    // Copy data to temp arrays leftArray[] and rightArray[]
-    for (auto i = 0; i < subArrayOne; i++)
-        leftArray[i] = array[left + i];
-    for (auto j = 0; j < subArrayTwo; j++)
-        rightArray[j] = array[mid + 1 + j];
+	// Copy data to temp arrays leftArray[] and rightArray[]
+	for (auto i = 0; i < subArrayOne; i++)
+		leftArray[i] = array[left + i];
+	for (auto j = 0; j < subArrayTwo; j++)
+		rightArray[j] = array[mid + 1 + j];
   
-    auto indexOfSubArrayOne = 0, // Initial index of first sub-array
-        indexOfSubArrayTwo = 0; // Initial index of second sub-array
-    int indexOfMergedArray = left; // Initial index of merged array
+	auto indexOfSubArrayOne = 0, // Initial index of first sub-array
+	indexOfSubArrayTwo = 0; // Initial index of second sub-array
+	int indexOfMergedArray = left; // Initial index of merged array
   
-    // Merge the temp arrays back into array[left..right]
-    while (indexOfSubArrayOne < subArrayOne && indexOfSubArrayTwo < subArrayTwo) 
-    {
-      if (leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo]) 
-      {
-        comparisons++;
-        array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
-        indexOfSubArrayOne++;
-      }
-      else 
-      {
-        comparisons++;
-        array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
-        indexOfSubArrayTwo++;
-      }
-      indexOfMergedArray++;
-    }
-    // Copy the remaining elements of
-    // left[], if there are any
-    while (indexOfSubArrayOne < subArrayOne) 
-    {
-      array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
-      indexOfSubArrayOne++;
-      indexOfMergedArray++;
-    }
-    // Copy the remaining elements of
-    // right[], if there are any
-    while (indexOfSubArrayTwo < subArrayTwo) 
-    {
-      array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
-      indexOfSubArrayTwo++;
-      indexOfMergedArray++;
-    }
+	// Merge the temp arrays back into array[left..right]
+	while (indexOfSubArrayOne < subArrayOne && indexOfSubArrayTwo < subArrayTwo) 
+	{
+		if (leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo]) 
+		{
+			comparisons++;
+			array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+			indexOfSubArrayOne++;
+		}
+		else 
+		{
+			comparisons++;
+			array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+			indexOfSubArrayTwo++;
+     	 	} // if
+		indexOfMergedArray++;
+	} // while
+	// Copy the remaining elements of
+	// left[], if there are any
+	while (indexOfSubArrayOne < subArrayOne) 
+	{
+		array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
+		indexOfSubArrayOne++;
+		indexOfMergedArray++;
+	} // while
+	// Copy the remaining elements of
+	// right[], if there are any
+	while (indexOfSubArrayTwo < subArrayTwo) 
+	{
+		array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
+		indexOfSubArrayTwo++;
+		indexOfMergedArray++;
+	} // while
 } // merge
 
-
+/**
+ * This is the recursive part of the mergesort. It is where it calls the merge after breaking up the array into small pieces
+ * @param array the array being sorted
+ * @param begin the index of the first element
+ * @param end the index of the last element
+ */
 void Sorting::MS(int array[], int const begin, int const end)
 {
-  if (begin >= end)
-    return; // Returns recursively
-  
-  auto mid = begin + (end - begin) / 2;
-  MS(array, begin, mid);
-  MS(array, mid + 1, end);
-  merge(array, begin, mid, end);
-}
+	if (begin >= end)
+		return; // Returns recursively 
+	auto mid = begin + (end - begin) / 2;
+	MS(array, begin, mid);
+	MS(array, mid + 1, end);
+	merge(array, begin, mid, end);
+} // MS
 
-
+/**
+ * This is the sorting part of heapsort. It turns the data into a heap and then promptly sorts it.
+ * The heap is still array based.
+ * @param arr the array to be sorted.
+ * @param n index of smallest element
+ * @param i index of largest element
+ */
 void Sorting::heapify(int arr[], int n, int i)
 {
-    int largest = i; // Initialize largest as root
-    int l = 2 * i + 1; // left = 2*i + 1
-    int r = 2 * i + 2; // right = 2*i + 2
+	int largest = i; // Initialize largest as root
+	int l = 2 * i + 1; // left = 2*i + 1
+	int r = 2 * i + 2; // right = 2*i + 2
  
-    // If left child is larger than root
-    if (l < n && arr[l] > arr[largest])
-    {
-      largest = l;
-    }
-      if (l < n) 
+	// If left child is larger than root
+	if (l < n && arr[l] > arr[largest])
 	{
-	comparisons++;
-	} 
-    // If right child is larger than largest so far
-    if (r < n && arr[r] > arr[largest])
-    {
-      largest = r;
-    }
-      if (r < n) 
+		largest = l;
+	} // if
+	if (l < n) 
 	{
-	comparisons++;
-	}
-    // If largest is not root
-    if (largest != i) {
-    {
-       swap(arr[i], arr[largest]);
-    }
-    // Recursively heapify the affected sub-tree
-    heapify(arr, n, largest);
-    }
+		comparisons++;
+	} // if 
+        // If right child is larger than largest so far
+	if (r < n && arr[r] > arr[largest])
+	{
+		largest = r;
+	} // if
+      	if (r < n) 
+	{
+		comparisons++;
+	} // if
+	// If largest is not root
+	if (largest != i)
+	{
+		swap(arr[i], arr[largest]);
+    		// Recursively heapify the affected sub-tree
+    		heapify(arr, n, largest);
+	} // if
 } // heapify 
 
 void Sorting::HS(int* arr, int n) //Heap
