@@ -190,9 +190,41 @@ void Sorting::HS(int* arr, int n) //Heap
 } // HS
 
 
-int Sorting::QS1(int* arr, int start,int last) //QuickSort at first
+int Sorting::partition1(int *arr,int start,int last)
 {
-  int i=start+1,j=last,temp;
+  int pivot=arr[start],p1=start+1,i,temp;
+  for(i=start+1;i<=last;i++)
+  {
+    comparisons++;
+    if(arr[i]<pivot)
+    {
+      if(i!=p1)
+      {  
+        temp=arr[p1];
+        arr[p1]=arr[i];
+        arr[i]=temp;
+      }   
+      p1++;
+    }
+  }
+  arr[start]=arr[p1-1];
+  arr[p1-1]=pivot;
+  return p1-1;
+}
+
+
+void Sorting::QS1(int* arr, int start,int last) //QuickSort at first
+{
+  int p1;
+  if(start<last)
+  {
+    p1=partition(arr,start,last);
+    QS1(arr,start,p1-1);
+    QS1(arr,p1+1,last);
+  }
+} // QS1
+
+/*int i=start+1,j=last,temp;
   if(i>j)
     return 0;
   while(i<=j)
@@ -219,10 +251,7 @@ int Sorting::QS1(int* arr, int start,int last) //QuickSort at first
   arr[j]=temp;
   QS1(arr,start,j-1);
   QS1(arr,j+1,last);     
-  return comparisons;
-} // QS1
-
-
+  return comparisons;*/
 
 void swap(int* a, int* b) 
 { 
