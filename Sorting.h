@@ -7,7 +7,7 @@ class Sorting
   public:
     Sorting();
     ~Sorting();
-    void SS(int* array);
+    void SS(int* array, int size);
     void MS(int* array, int const begin, int const end);
     void MSPT2(int* array, int left, int mid, int right);
     void HS(int* array,int n);

@@ -10,14 +10,14 @@ Sorting::~Sorting()
   
 }
 
-void Sorting::SS(int* array)
+void Sorting::SS(int* array, int size)
 {
 	int low;
 	int tracker;
-	for (int i = 0; i < 10000; i++)
+	for (int i = 0; i < size; i++)
 	{
 		tracker = i;
-		for (int j = 10000-1; j > i; j--)
+		for (int j = size-1; j > i; j--)
 		{
 			if (array[j] < array[tracker])
 			{

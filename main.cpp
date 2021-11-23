@@ -91,7 +91,7 @@ int main (int argc, char **argv)
 	switch (userSelectChar)
 			{
 			case 's': //Selestion Sort
-        listy.SS(values);
+        listy.SS(values, (sizeof(values)/sizeof(values[0])));
 				printArray(values, (sizeof(values)/sizeof(values[0])));
         cout << "Number of comparisons: " << listy.comparisons << endl;
 				break;
