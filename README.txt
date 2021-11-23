@@ -1,10 +1,9 @@
 Nathaniel Mathers 811053553 nbm54197@uga.edu
 Orain Ferguson    811225938 onf32955@uga.edu
 
-Assignment 5: Sorting
+Assignment 5: Sorting Experiment
 
 This project was all about comparing the different sort methods and their efficiencies relative to the type of sorting they are needed for.
-
 
 
 How to compile:
@@ -47,12 +46,10 @@ selectionsort
 quicksort1
 mergesort
 paper
+comments
 
 
 Citations
-
-http://liladharpaliwal.blogspot.com/ 
-quick sort first element
 
 https://www.geeksforgeeks.org/quicksort-using-random-pivoting/
 quick sort for random element
