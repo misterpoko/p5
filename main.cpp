@@ -68,11 +68,11 @@ int main (int argc, char **argv)
         head = curr;
         i++;
     }//while
+	int values2[valuesSize];
+	for (int i = valuesSize-1, j = 0; i >= 0; i--,j++)
+		values2[j] = values[i];
 	for (int i = 0; i < valuesSize; i++)
-	{
-		cout << values[i] << " ";
-	} // for
-	cout << endl;
+		values[i] = values2[i];
     head = null;
     curr = null;
   cout << endl;
