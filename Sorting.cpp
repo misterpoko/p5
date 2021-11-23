@@ -73,7 +73,6 @@ void Sorting::merge(int array[], int const left, int const mid, int const right)
       array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
       indexOfSubArrayOne++;
       indexOfMergedArray++;
-      comparisons++;
     }
     // Copy the remaining elements of
     // right[], if there are any
@@ -82,9 +81,8 @@ void Sorting::merge(int array[], int const left, int const mid, int const right)
       array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
       indexOfSubArrayTwo++;
       indexOfMergedArray++;
-      comparisons++;
     }
-}
+} // merge
 
 
 void Sorting::MS(int array[], int const begin, int const end)
@@ -168,7 +166,7 @@ void Sorting::heapify(int arr[], int n, int i)
     // Recursively heapify the affected sub-tree
     heapify(arr, n, largest);
     }
-} 
+} // heapify 
 
 void Sorting::HS(int* arr, int n) //Heap
 {
@@ -206,7 +204,6 @@ int Sorting::QS1(int* arr, int start,int last) //QuickSort at first
     }//if
     if(i<=j)
     {
-      comparisons++;
       temp=arr[i];
       arr[i]=arr[j];
       arr[j]=temp;
@@ -269,13 +266,6 @@ int Sorting::QS2(int* arr, int low,int high) //QuickSort at random
 {
     if (low < high) 
     { 
-    
-    
-        comparisons++; // I dont know if this is a comparison that needs to be counted.
-        
-        
-        
-        
         // pi is partitioning index, arr[p] is now at right place 
         int pi = partition_r(arr, low, high); 
   
