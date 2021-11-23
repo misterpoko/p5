@@ -153,7 +153,6 @@ void Sorting::heapify(int arr[], int n, int i)
       if (l < n) 
 	{
 	comparisons++;
-  //    if (arr[l] > arr[largest]) comparisons++;
 	} 
     // If right child is larger than largest so far
     if (r < n && arr[r] > arr[largest])
@@ -163,7 +162,6 @@ void Sorting::heapify(int arr[], int n, int i)
       if (r < n) 
 	{
 	comparisons++;
-//      if (arr[r] > arr[largest]) comparisons++;
 	}
     // If largest is not root
     if (largest != i) {
